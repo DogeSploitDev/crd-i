@@ -4,25 +4,25 @@ import tarfile
 import shutil
 import subprocess
 
-# URL to the Chrome Remote Desktop package
-crd_url = "https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb"
-package_name = "chrome-remote-desktop_current_amd64.deb"
+# URL to the Hashcat package
+hashcat_url = "http://http.us.debian.org/debian/pool/main/h/hashcat/hashcat_6.2.6+ds2-1+b1_arm64.deb"
+package_name = "hashcat_6.2.6+ds2-1+b1_arm64.deb"
 
 # Download the package
-urllib.request.urlretrieve(crd_url, package_name)
+urllib.request.urlretrieve(hashcat_url, package_name)
 print(f"Downloaded {package_name}")
 
 # Ensure the ar command is available
 def check_ar_command():
     result = subprocess.run(["which", "ar"], capture_output=True, text=True)
     if result.returncode != 0:
-        print("Error: 'ar' command not found. Please install 'binutils' package.")
+        print("Error: 'ar' command not found. Please install the 'binutils' package.")
         exit(1)
 
 check_ar_command()
 
 # Create a temporary directory for extraction
-extract_dir = "crd_extract"
+extract_dir = "hashcat_extract"
 os.makedirs(extract_dir, exist_ok=True)
 
 # Move the .deb file to the extraction directory
@@ -60,13 +60,17 @@ else:
 
 # Manually copy files to their destinations
 def copy_files(src_dir, dest_dir):
-    for item in os.listdir(src_dir):
-        s = os.path.join(src_dir, item)
-        d = os.path.join(dest_dir, item)
-        if os.path.isdir(s):
-            shutil.copytree(s, d, dirs_exist_ok=True)
-        else:
-            shutil.copy2(s, d)
+    if os.path.exists(src_dir):
+        for item in os.listdir(src_dir):
+            s = os.path.join(src_dir, item)
+            d = os.path.join(dest_dir, item)
+            if os.path.isdir(s):
+                shutil.copytree(s, d, dirs_exist_ok=True)
+            else:
+                shutil.copy2(s, d)
+        print(f"Copied files from {src_dir} to {dest_dir}")
+    else:
+        print(f"Directory {src_dir} does not exist, skipping.")
 
 # Define the directories to copy
 copy_files("opt", "/opt")
@@ -82,4 +86,4 @@ if os.path.exists(postinst_script):
     subprocess.run([postinst_script], shell=True)
     print("Ran postinst script")
 
-print("Chrome Remote Desktop installed successfully!")
+print("Hashcat installed successfully!")
