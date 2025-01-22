@@ -4,25 +4,25 @@ import tarfile
 import shutil
 import subprocess
 
-# URL to the Hashcat package
-hashcat_url = "http://http.us.debian.org/debian/pool/main/h/hashcat/hashcat_6.2.6+ds2-1+b1_arm64.deb"
-package_name = "hashcat_6.2.6+ds2-1+b1_arm64.deb"
+# URL to the Chrome Remote Desktop package
+crd_url = "https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb"
+package_name = "chrome-remote-desktop_current_amd64.deb"
 
 # Download the package
-urllib.request.urlretrieve(hashcat_url, package_name)
+urllib.request.urlretrieve(crd_url, package_name)
 print(f"Downloaded {package_name}")
 
 # Ensure the ar command is available
 def check_ar_command():
     result = subprocess.run(["which", "ar"], capture_output=True, text=True)
     if result.returncode != 0:
-        print("Error: 'ar' command not found. Please install the 'binutils' package.")
+        print("Error: 'ar' command not found. Please install 'binutils' package.")
         exit(1)
 
 check_ar_command()
 
 # Create a temporary directory for extraction
-extract_dir = "hashcat_extract"
+extract_dir = "crd_extract"
 os.makedirs(extract_dir, exist_ok=True)
 
 # Move the .deb file to the extraction directory
@@ -82,4 +82,4 @@ if os.path.exists(postinst_script):
     subprocess.run([postinst_script], shell=True)
     print("Ran postinst script")
 
-print("Hashcat installed successfully!")
+print("Chrome Remote Desktop installed successfully!")
