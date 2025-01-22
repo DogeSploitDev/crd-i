@@ -74,9 +74,9 @@ with tempfile.TemporaryDirectory() as extract_dir:
                 s = os.path.join(src_dir, item)
                 d = os.path.join(dest_dir, item)
                 if os.path.isdir(s):
-                    subprocess.run(["sudo", "cp", "-r", s, d])
+                    shutil.copytree(s, d, dirs_exist_ok=True)
                 else:
-                    subprocess.run(["sudo", "cp", s, d])
+                    shutil.copy2(s, d)
             print(f"Copied files from {src_dir} to {dest_dir}")
         else:
             print(f"Directory {src_dir} does not exist, skipping.")
@@ -94,7 +94,7 @@ with tempfile.TemporaryDirectory() as extract_dir:
     postinst_script = os.path.join("DEBIAN", "postinst")
     if os.path.exists(postinst_script):
         os.chmod(postinst_script, 0o755)
-        subprocess.run(["sudo", postinst_script], shell=True)
+        subprocess.run([postinst_script], shell=True)
         print("Ran postinst script")
 
     # Move back to the original working directory for the next package
