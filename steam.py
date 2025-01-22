@@ -4,6 +4,10 @@ import tarfile
 import shutil
 import subprocess
 import tempfile
+import sys
+
+# Install xterm library using pip3
+subprocess.run([sys.executable, "-m", "pip", "install", "xterm"])
 
 # URL to the Steam package
 steam_url = "https://steamcdn-a.akamaihd.net/client/installer/steam.deb"
@@ -23,8 +27,12 @@ with tempfile.TemporaryDirectory() as extract_dir:
     print(f"Using temporary directory: {extract_dir}")
 
     # Download the Steam package
-    urllib.request.urlretrieve(steam_url, package_name)
-    print(f"Downloaded {package_name}")
+    try:
+        urllib.request.urlretrieve(steam_url, package_name)
+        print(f"Downloaded {package_name}")
+    except Exception as e:
+        print(f"Error downloading {package_name}: {e}")
+        exit(1)
 
     # Move the .deb file to the extraction directory
     shutil.move(package_name, os.path.join(extract_dir, package_name))
@@ -66,9 +74,9 @@ with tempfile.TemporaryDirectory() as extract_dir:
                 s = os.path.join(src_dir, item)
                 d = os.path.join(dest_dir, item)
                 if os.path.isdir(s):
-                    shutil.copytree(s, d, dirs_exist_ok=True)
+                    subprocess.run(["sudo", "cp", "-r", s, d])
                 else:
-                    shutil.copy2(s, d)
+                    subprocess.run(["sudo", "cp", s, d])
             print(f"Copied files from {src_dir} to {dest_dir}")
         else:
             print(f"Directory {src_dir} does not exist, skipping.")
@@ -86,7 +94,7 @@ with tempfile.TemporaryDirectory() as extract_dir:
     postinst_script = os.path.join("DEBIAN", "postinst")
     if os.path.exists(postinst_script):
         os.chmod(postinst_script, 0o755)
-        subprocess.run([postinst_script], shell=True)
+        subprocess.run(["sudo", postinst_script], shell=True)
         print("Ran postinst script")
 
     # Move back to the original working directory for the next package
