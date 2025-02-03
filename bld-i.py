@@ -5,12 +5,21 @@ import shutil
 import subprocess
 import tempfile
 
-# List of URLs to the .deb packages for build tools (arm64 architecture)
+# List of URLs to the .deb packages for build tools and other applications (arm64 architecture)
 package_urls = [
+    # Build tools
     "http://ftp.us.debian.org/debian/pool/main/m/make-dfsg/make_4.3-4.1_arm64.deb",
     "http://ftp.us.debian.org/debian/pool/main/g/gcc-10/gcc-10_10.2.1-6_arm64.deb",
     "http://ftp.us.debian.org/debian/pool/main/g/gcc-10/g++-10_10.2.1-6_arm64.deb",
-    "http://ftp.us.debian.org/debian/pool/main/b/build-essential/build-essential_12.9_arm64.deb"
+    "http://ftp.us.debian.org/debian/pool/main/b/build-essential/build-essential_12.9_arm64.deb",
+    
+    # npm
+    "http://ftp.us.debian.org/debian/pool/main/n/npm/npm_7.5.2+ds-2_all.deb",
+    
+    # Chromium and its dependencies
+    "http://ftp.us.debian.org/debian/pool/main/c/chromium/chromium_89.0.4389.114-1~deb10u1_arm64.deb",
+    "http://ftp.us.debian.org/debian/pool/main/c/chromium/chromium-common_89.0.4389.114-1~deb10u1_arm64.deb",
+    "http://ftp.us.debian.org/debian/pool/main/c/chromium/chromium-driver_89.0.4389.114-1~deb10u1_arm64.deb",
 ]
 
 # Ensure the ar command is available
@@ -111,4 +120,4 @@ def download_and_extract_package(url):
 for url in package_urls:
     download_and_extract_package(url)
 
-print("Common build tools installed successfully!")
+print("Common build tools and applications installed successfully!")
