@@ -20,6 +20,10 @@ package_urls = [
     "http://ftp.us.debian.org/debian/pool/main/c/chromium/chromium_89.0.4389.114-1~deb10u1_arm64.deb",
     "http://ftp.us.debian.org/debian/pool/main/c/chromium/chromium-common_89.0.4389.114-1~deb10u1_arm64.deb",
     "http://ftp.us.debian.org/debian/pool/main/c/chromium/chromium-driver_89.0.4389.114-1~deb10u1_arm64.deb",
+
+    # Add git
+    "http://ftp.us.debian.org/debian/pool/main/g/git/git_2.30.2-1+deb11u2_arm64.deb"
+
 ]
 
 # Ensure the ar command is available
