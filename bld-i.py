@@ -22,8 +22,16 @@ package_urls = [
     "http://ftp.us.debian.org/debian/pool/main/c/chromium/chromium-driver_89.0.4389.114-1~deb10u1_arm64.deb",
 
     # Add git
-    "http://ftp.us.debian.org/debian/pool/main/g/git/git_2.30.2-1+deb11u2_arm64.deb"
+    "http://ftp.us.debian.org/debian/pool/main/g/git/git_2.30.2-1+deb11u2_arm64.deb",
 
+    # Add libjsoncpp
+    "http://ftp.us.debian.org/debian/pool/main/j/jsoncpp/libjsoncpp24_1.9.4-3_arm64.deb",
+
+    # Additional Chromium dependencies
+    "http://ftp.us.debian.org/debian/pool/main/c/cups/libcups2_2.3.3op2-3+deb11u2_arm64.deb",
+    "http://ftp.us.debian.org/debian/pool/main/libx/libx11/libx11-6_1.7.2-1_arm64.deb",
+    "http://ftp.us.debian.org/debian/pool/main/libx/libx11/libx11-data_1.7.2-1_all.deb",
+    "http://ftp.us.debian.org/debian/pool/main/libx/libx11/libx11-dev_1.7.2-1_arm64.deb"
 ]
 
 # Ensure the ar command is available
